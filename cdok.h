@@ -91,7 +91,8 @@ struct cdok_puzzle {
 /* This data type is used to represent sets of values. It's guaranteed
  * to have at least CDOK_SIZE bits.
  */
-typedef uint16_t cdok_set_t;
+//typedef uint16_t cdok_set_t;
+typedef __int128 cdok_set_t;
 
 #define CDOK_SET_SINGLE(c)		(1 << ((c) - 1))
 #define CDOK_SET_ONES(s)		((1 << (s)) - 1)
