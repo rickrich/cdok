@@ -34,6 +34,7 @@
 
 #define OPT_FLAG_UNICODE	0x01
 #define OPT_FLAG_TWO_CELL	0x02
+#define OPT_FLAG_NYLIMB		0x04
 
 struct command;
 
@@ -161,6 +162,8 @@ static int do_solve(const struct options *opt, int want_solution)
 	if (read_puzzle(opt->in_file, &puz) < 0)
 		return -1;
 
+	puz.nylimb = opt->flags & OPT_FLAG_NYLIMB;
+
 	r = cdok_solve(&puz, solution, &diff);
 	if (r < 0) {
 		fprintf(stderr, "Puzzle is not solvable\n");
@@ -240,6 +243,8 @@ static int cmd_harden(const struct options *opt)
 	if (read_puzzle(opt->in_file, &puz) < 0)
 		return -1;
 
+	puz.nylimb = opt->flags & OPT_FLAG_NYLIMB;
+
 	r = cdok_solve(&puz, solution, NULL);
 	if (r < 0) {
 		fprintf(stderr, "Puzzle is not solvable\n");
@@ -308,6 +313,7 @@ static void usage(const char *progname)
 "    -w num       Maximum generator iterations (default 20).\n"
 "    -m diff      Maximum puzzle difficulty (default 0, no limit).\n"
 "    -t diff      Threshold difficulty for early stop (default 0, none).\n"
+"    -N           Nylimb mode\n"
 "    --help       Show this text.\n"
 "    --version    Show version information.\n"
 "\n"
@@ -353,7 +359,7 @@ static int parse_options(int argc, char **argv, struct options *opt)
 	opt->gen_iterations = 20;
 	opt->gen_size = 6;
 
-	while ((o = getopt_long(argc, argv, "i:o:uTs:w:m:t:",
+	while ((o = getopt_long(argc, argv, "i:o:uTs:w:m:t:N",
 				longopts, NULL)) >= 0)
 		switch (o) {
 		case 'T':
@@ -391,6 +397,10 @@ static int parse_options(int argc, char **argv, struct options *opt)
 
 		case 'o':
 			opt->out_file = optarg;
+			break;
+
+		case 'N':
+			opt->flags |= OPT_FLAG_NYLIMB;
 			break;
 
 		case 'V':

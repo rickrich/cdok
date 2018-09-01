@@ -45,3 +45,11 @@ install: cdok
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/cdok
+
+sample:	all
+	./cdok solve <sample.puz
+
+GC7WQR5: all
+	./cdok -N solve <GC7WQR5.puz
+
+test: sample GC7WQR5

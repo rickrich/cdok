@@ -82,6 +82,7 @@ struct cdok_group {
  */
 struct cdok_puzzle {
 	unsigned int		size;
+	unsigned int		nylimb;
 	struct cdok_group	groups[CDOK_GROUPS];
 	uint8_t			values[CDOK_CELLS];
 	uint8_t			group_map[CDOK_CELLS];

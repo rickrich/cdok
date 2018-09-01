@@ -425,6 +425,7 @@ static void solve_recurse(struct solver_context *ctx, int branch_diff)
 	cdok_set_t candidates;
 	int i;
 	int diff;
+	int real_max;
 
 	cell = find_candidates(ctx->puzzle, ctx->values, &candidates);
 
@@ -449,7 +450,8 @@ static void solve_recurse(struct solver_context *ctx, int branch_diff)
 	diff = count_bits(candidates) - 1;
 	diff = branch_diff + (diff * diff);
 
-	for (i = 1; i <= ctx->puzzle->size; i++) {
+	real_max = ctx->puzzle->nylimb ? 99 : ctx->puzzle->size;
+	for (i = 1; i <= real_max; i++) {
 		if (!(candidates & CDOK_SET_SINGLE(i)))
 			continue;
 
