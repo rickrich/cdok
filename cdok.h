@@ -104,7 +104,7 @@ typedef unsigned __int128 cdok_set_t;
 #define CDOK_SET_SINGLE(c)		( (unsigned __int128) 1 << ((c)))
 #define CDOK_SET_ONES(s)		(( (unsigned __int128) 1 << (s+1)) - 1)
 #define CDOK_SET_RANGE(min, max)	\
-	( (unsigned __int128) CDOK_SET_ONES(max - min + 1) << (min))
+	( (unsigned __int128) CDOK_SET_ONES(max - min) << (min))
 #endif
 
 /* Initialize a new, empty grid */
@@ -120,5 +120,7 @@ void cdok_flood_fill(uint8_t *map, uint8_t src, int x, int y);
  */
 uint8_t cdok_group_to_char(uint8_t g);
 uint8_t cdok_char_to_group(uint8_t ch);
+
+#define NO_VALUE 150
 
 #endif
