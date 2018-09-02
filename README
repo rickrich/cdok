@@ -105,6 +105,15 @@ is:
 Puzzle specs may be terminated by a blank line. Anything following the
 blank line is ignored when parsing.
 
+Nylimb Mode
+-----------
+
+Paul Falstad and Rick Richardson did "Nylimb Mode", which is described here:
+
+	https://coord.info/GC7WQR5
+
+Just use -N on the command line.
+
 Installation
 ------------
 
@@ -127,6 +136,8 @@ Copyright
 ---------
 
 Copyright (C) 2012 Daniel Beer <dlbeer@gmail.com>
+Copyright (C) 2018 Paul Falslad <paul@falstad.com>
+Copyright (C) 2018 Rick Richardson <rickrich@gmail.com>
 
 Permission to use, copy, modify, and/or distribute this software for
 any purpose with or without fee is hereby granted, provided that the
