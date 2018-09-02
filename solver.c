@@ -15,8 +15,45 @@
  */
 
 #include <string.h>
+#include <stdio.h>
+#include <inttypes.h>
 
 #include "solver.h"
+
+/*
+** Using documented GCC type unsigned __int128 instead of undocumented
+** obsolescent typedef name __uint128_t.  Works with GCC 4.7.1 but not
+** GCC 4.1.2 (but __uint128_t works with GCC 4.1.2) on Mac OS X 10.7.4.
+*/
+typedef unsigned __int128 uint128_t;
+
+/*      UINT64_MAX 18446744073709551615ULL */
+#define P10_UINT64 10000000000000000000ULL /* 19 zeroes */
+#define E10_UINT64 19
+
+#define STRINGIZER(x) # x
+#define TO_STRING(x) STRINGIZER(x)
+
+int print_uint128_decimal(__uint128_t big) {
+  size_t rc = 0;
+  size_t i = 0;
+  if (big >> 64) {
+    char buf[40];
+    while (big / P10_UINT64) {
+      rc += sprintf(buf + E10_UINT64 * i, "%." TO_STRING(E10_UINT64) PRIu64,
+		(uint64_t)(big % P10_UINT64));
+      ++i;
+      big /= P10_UINT64;
+    }
+    rc += printf("%" PRIu64, (uint64_t)big);
+    while (i--) {
+      fwrite(buf + E10_UINT64 * i, sizeof(char), E10_UINT64, stdout);
+    }
+  } else {
+    rc += printf("%" PRIu64, (uint64_t)big);
+  }
+  return rc;
+}
 
 /************************************************************************
  * Group analysis
@@ -451,7 +488,7 @@ static void solve_recurse(struct solver_context *ctx, int branch_diff)
 	diff = branch_diff + (diff * diff);
 
 	real_max = ctx->puzzle->nylimb ? 99 : ctx->puzzle->size;
-	for (i = 1; i <= real_max; i++) {
+	for (i = ctx->puzzle->nylimb ? 0 : 1; i <= real_max; i++) {
 		if (!(candidates & CDOK_SET_SINGLE(i)))
 			continue;
 
@@ -479,7 +516,10 @@ static void solve_recurse(struct solver_context *ctx, int branch_diff)
 int cdok_solve(const struct cdok_puzzle *puz, uint8_t *solution, int *diff)
 {
 	struct solver_context ctx;
-
+print_uint128_decimal(0); printf("\n");
+print_uint128_decimal( (uint128_t) 1 << 99); printf("\n");
+print_uint128_decimal(CDOK_SET_SINGLE(99)); printf("\n");
+print_uint128_decimal(-1); printf("\n");
 	ctx.puzzle = puz;
 	ctx.solution = solution;
 	ctx.count = 0;
