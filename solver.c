@@ -558,7 +558,7 @@ int cdok_solve(const struct cdok_puzzle *puz, uint8_t *solution, int *diff)
 	solve_recurse(&ctx, 0);
 
 	if (!ctx.count) {
-		printf("failed\n");
+		//printf("failed\n");
 		return -1;
      }
 
