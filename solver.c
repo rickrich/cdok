@@ -380,7 +380,7 @@ static void constrain_by_groups(const struct cdok_puzzle *puz,
 			int j;
 
 			for (j = 0; j < g->size; j++) {
-				int mem = g->members[j];
+				//int mem = g->members[j];
 				candidates[g->members[j]] &= c;
 				//printf("candidates for r%d,c%d: ", mem/16, mem%16);
 				//print_candidates(candidates[g->members[j]]); printf("\n");
