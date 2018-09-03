@@ -190,6 +190,7 @@ static void group_add(struct cdok_puzzle *puz, int grp, cdok_pos_t c)
 
 	g->members[g->size++] = c;
 	puz->values[c] = 0;
+	puz->values[c] = NO_VALUE;
 	puz->group_map[c] = grp;
 }
 
