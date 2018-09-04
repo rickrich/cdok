@@ -53,3 +53,9 @@ GC7WQR5: all
 	./cdok -N solve <GC7WQR5.puz
 
 test: sample GC7WQR5
+
+gensolve: all
+	./cdok -T -s9 generate | ./cdok solve
+
+gensolveN: all
+	./cdok -T -s9 -N generate | ./cdok -N solve
